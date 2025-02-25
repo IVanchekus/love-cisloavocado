@@ -4,6 +4,12 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import type { IProps } from '@/components/HeartComponent/HeartComponent.types';
+
+const props = withDefaults(defineProps<IProps>(), {
+  offsetX: 0,
+  offsetY: 0
+});
 
 const heartCanvas = ref<HTMLCanvasElement | null>(null)
 
@@ -55,7 +61,10 @@ onMounted(() => {
   const targetPoints: number[][] = []
   const pulse = (kx: number, ky: number) => {
     for (let i = 0; i < pointsOrigin.length; i++) {
-      targetPoints[i] = [kx * pointsOrigin[i][0] + width / 2, ky * pointsOrigin[i][1] + height / 2]
+      targetPoints[i] = [
+        kx * pointsOrigin[i][0] + width / 2 + props.offsetX,
+        ky * pointsOrigin[i][1] + height / 2 + props.offsetY
+      ]
     }
   }
 
@@ -124,10 +133,10 @@ onMounted(() => {
 <style scoped>
 canvas {
   position: absolute;
+  z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
 }
 </style>
