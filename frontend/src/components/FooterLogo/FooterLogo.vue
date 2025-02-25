@@ -16,6 +16,12 @@
     color: #4F4F4F;
     font-size: 20px;
   }
+
+  @media (max-width: 768px) {
+    &__naming {
+      font-size: 14px;
+    }
+  }
 }
 </style>
 
